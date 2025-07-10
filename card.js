@@ -54,7 +54,7 @@ function render(drawHistory) {
     const div = document.createElement('div');
     div.className = 'card';
     div.innerHTML = `
-      <div class="card-id">#${card.hashtag || card.id}</div>
+      <div class="card-id">${card.hashtag || card.id}</div>
       <div class="card-name">${card.nom}</div>
       <div class="card-rarete ${card.rarete.toLowerCase()}">${card.rarete}</div>
       <div class="card-desc">${card.description}</div>
