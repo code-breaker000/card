@@ -1,0 +1,46 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+input, button {
+  margin: 5px 0;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}
+
+#card {
+  border: 2px solid #333;
+  padding: 15px;
+  margin-top: 20px;
+  display: none;
+}
+
+.Légendaire {
+  color: gold;
+  font-weight: bold;
+}
+
+.Épique {
+  color: purple;
+  font-weight: bold;
+}
+
+.Rare {
+  color: blue;
+}
+
+.Commune {
+  color: green;
+}
+
+.Médiocre {
+  color: gray;
+}
