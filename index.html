@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carte Collector - Tirage Quotidien</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>Carte Collector - Tirage Quotidien</h1>
+
+  <div id="auth-section">
+    <h2>Créer un compte</h2>
+    <input id="signupEmail" placeholder="Email" type="email" />
+    <input id="signupPassword" placeholder="Mot de passe" type="password" />
+    <input id="signupPseudo" placeholder="Pseudo" />
+    <button id="btnSignup">S'inscrire</button>
+
+    <h2>Se connecter</h2>
+    <input id="loginEmail" placeholder="Email" type="email" />
+    <input id="loginPassword" placeholder="Mot de passe" type="password" />
+    <button id="btnLogin">Connexion</button>
+
+    <h2>Ou connexion Google</h2>
+    <button id="btnGoogle">Se connecter avec Google</button>
+  </div>
+
+  <div id="user-section" style="display:none;">
+    <p>Bienvenue, <span id="userPseudo"></span> !</p>
+    <button class="glow-on-hover"  id="modeButton" onclick="night()">Theme sombre</button>
+    <!-- Bouton de tirage -->
+    <button class="glow-on-hover" id="btnDraw">Tirer une carte aujourd'hui</button>
+  
+    <!-- ✅ Nouveau bouton pour voir les cartes -->
+    <button class="glow-on-hover"  id="btnViewCards">Voir mes cartes</button>
+  
+    <!-- Bouton de déconnexion -->
+    <button class="glow-on-hover"  id="btnLogout">Déconnexion</button>
+  
+    <div id="card">
+      <h3 id="cardName"></h3>
+      <p><strong>Rareté :</strong> <span id="cardRarity"></span></p>
+      <p id="cardDesc"></p>
+    </div>
+  </div>
+  
+  <!-- ... scripts Firebase ... -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
+  
+  <script type="module" src="script.js"></script>
+  
+
+  <script>
+  function night() {
+    var element = document.body;
+    var button = document.getElementById("modeButton");
+    element.classList.toggle("dark-mode");
+    
+    // Changer le texte du bouton en fonction du mode actuel
+    if (element.classList.contains("dark-mode")) {
+      button.innerText = "Theme claire";
+    } else {
+      button.innerText = "Theme sombre";
+    }
+  }
+  </script>
+</body>
+</html>
