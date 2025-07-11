@@ -22,7 +22,7 @@ const firebaseConfig = {
   authDomain: "card-6143c.firebaseapp.com",
   databaseURL: "https://card-6143c-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "card-6143c",
-  storageBucket: "card-6143c.firebasestorage.app",
+  storageBucket: "card-6143c.appspot.com",
   messagingSenderId: "470927423801",
   appId: "1:470927423801:web:1bd258e29d5438e8eb90e8",
   measurementId: "G-339FRXV4MM"
@@ -41,7 +41,6 @@ async function loadCards() {
   cards = await res.json();
 }
 
-// Probabilités pour chaque rareté
 const rarityProbabilities = [
   { rarity: "Légendaire", chance: 0.001 },
   { rarity: "Épique", chance: 0.05 },
@@ -50,7 +49,6 @@ const rarityProbabilities = [
   { rarity: "Médiocre", chance: 0.5 }
 ];
 
-// Tirage de la rareté
 function drawRarity() {
   const rand = Math.random();
   let cumulative = 0;
@@ -61,7 +59,6 @@ function drawRarity() {
   return "Médiocre";
 }
 
-// Tirage d’une carte selon la rareté tirée
 function drawCard() {
   const rarity = drawRarity();
   const filtered = cards.filter(c => c.rarete === rarity);
@@ -69,7 +66,6 @@ function drawCard() {
   return filtered[Math.floor(Math.random() * filtered.length)];
 }
 
-// Affiche la carte tirée dans la page
 function showCard(card) {
   const cardName = document.getElementById("cardName");
   const cardRarity = document.getElementById("cardRarity");
@@ -83,7 +79,6 @@ function showCard(card) {
   cardDiv.style.display = "block";
 }
 
-// UI Elements
 const authSection = document.getElementById("auth-section");
 const userSection = document.getElementById("user-section");
 const userPseudoSpan = document.getElementById("userPseudo");
@@ -92,11 +87,10 @@ const btnLogin = document.getElementById("btnLogin");
 const btnGoogle = document.getElementById("btnGoogle");
 const btnLogout = document.getElementById("btnLogout");
 const btnDraw = document.getElementById("btnDraw");
-const btnViewCards = document.getElementById("btnViewCards"); // ✅ Nouveau bouton
+const btnViewCards = document.getElementById("btnViewCards");
 
 let isAdmin = false;
 
-// Inscription
 btnSignup.onclick = () => {
   const email = document.getElementById("signupEmail").value;
   const password = document.getElementById("signupPassword").value;
@@ -117,7 +111,6 @@ btnSignup.onclick = () => {
     .catch(e => alert("Erreur inscription: " + e.message));
 };
 
-// Connexion classique
 btnLogin.onclick = () => {
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
@@ -127,7 +120,6 @@ btnLogin.onclick = () => {
     .catch(e => alert("Erreur connexion: " + e.message));
 };
 
-// Connexion Google
 btnGoogle.onclick = () => {
   signInWithPopup(auth, provider)
     .then(async ({ user }) => {
@@ -152,17 +144,14 @@ btnGoogle.onclick = () => {
     .catch(e => alert("Erreur Google: " + e.message));
 };
 
-// Déconnexion
 btnLogout.onclick = () => {
   signOut(auth);
 };
 
-// Bouton "Voir mes cartes"
 btnViewCards.onclick = () => {
   window.location.href = "card.html";
 };
 
-// Surveillance de l’état de connexion
 onAuthStateChanged(auth, async user => {
   if (user) {
     authSection.style.display = "none";
@@ -189,10 +178,8 @@ onAuthStateChanged(auth, async user => {
   }
 });
 
-// Chargement des cartes au démarrage
 await loadCards();
 
-// Tirage de la carte au clic
 btnDraw.onclick = async () => {
   const user = auth.currentUser;
   if (!user) return alert("Connectez-vous d'abord.");
@@ -204,7 +191,6 @@ btnDraw.onclick = async () => {
   const userData = snap.val();
   const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
 
-  // Si pas admin, vérifier limite 1 tirage par jour
   if (!isAdmin && userData.lastDraw === today) {
     alert("Vous avez déjà tiré une carte aujourd'hui !");
     if (userData.lastCard) showCard(userData.lastCard);
@@ -212,10 +198,11 @@ btnDraw.onclick = async () => {
   }
 
   let card = null;
+
   if (isAdmin) {
     const tag = prompt("Entrez le hashtag de la carte à donner (ex : #001) ou laissez vide pour tirage aléatoire:");
     if (tag && tag.startsWith("#")) {
-      card = cards.find(c => c.id === tag); // ← on compare directement avec le champ 'id'
+      card = cards.find(c => c.id === tag);
       if (!card) {
         alert("Carte avec ce hashtag introuvable, tirage aléatoire à la place.");
         card = drawCard();
@@ -223,8 +210,9 @@ btnDraw.onclick = async () => {
     } else {
       card = drawCard();
     }
+  } else {
+    card = drawCard(); // ✅ correction ici
   }
-  
 
   if (!card) return alert("Erreur lors du tirage.");
 
