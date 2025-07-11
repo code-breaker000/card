@@ -215,8 +215,7 @@ btnDraw.onclick = async () => {
   if (isAdmin) {
     const tag = prompt("Entrez le hashtag de la carte à donner (ex : #001) ou laissez vide pour tirage aléatoire:");
     if (tag && tag.startsWith("#")) {
-      const code = tag.slice(1);
-      card = cards.find(c => c.hashtag === code);
+      card = cards.find(c => c.id === tag); // ← on compare directement avec le champ 'id'
       if (!card) {
         alert("Carte avec ce hashtag introuvable, tirage aléatoire à la place.");
         card = drawCard();
@@ -224,9 +223,8 @@ btnDraw.onclick = async () => {
     } else {
       card = drawCard();
     }
-  } else {
-    card = drawCard();
   }
+  
 
   if (!card) return alert("Erreur lors du tirage.");
 
