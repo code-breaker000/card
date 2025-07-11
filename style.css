@@ -1,0 +1,190 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 80px 20px 20px 20px; /* padding-top augmenté pour laisser place au bandeau */
+  max-width: 600px;
+  margin: auto;
+  background-color: black;
+  color: white;
+}
+
+
+
+.dark-mode {
+  transition: background-color 0.3s, color 0.3s;
+  background-color: white;
+  color: black;
+}
+
+input, button {
+  margin: 5px 0;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}
+
+#card {
+  border: 4px solid gray;
+  padding: 15px;
+  margin-top: 20px;
+  display: block;
+  border-radius: 12px;
+  transition: all 0.3s;
+  background-color: #333;
+  color: white;
+}
+
+/* Style du #card en mode sombre */
+.dark-mode #card {
+  border: 4px solid #333;
+  background-color: white;
+  color: black;
+}
+
+.Légendaire {
+  color: gold;
+  font-weight: bold;
+}
+
+.Épique {
+  color: purple;
+  font-weight: bold;
+}
+
+.Rare {
+  color: blue;
+}
+
+.Commune {
+  color: green;
+}
+
+.Médiocre {
+  color: gray;
+}
+
+ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: #343e48;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+li {
+  list-style: none;
+}
+
+/* Adaptation du style bouton glow pour le menu */
+.glow-on-hover {
+  width: auto;
+  padding: 12px 20px;
+  border: none;
+  outline: none;
+  color: #fff !important;
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.glow-on-hover:before {
+  content: '';
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.glow-on-hover:hover:before {
+  opacity: 1;
+}
+
+.glow-on-hover:after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+.glow-on-hover:active {
+  color: #000;
+}
+
+.glow-on-hover:active:after {
+  background: transparent;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* Bandeau horizontal */
+.bandeau {
+  width: 100%;
+  background-color: #343e48;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+  padding: 10px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Tu peux adapter les tailles ici */
+.menu li {
+  display: inline-block;
+}
